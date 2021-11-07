@@ -22,7 +22,7 @@ class IngredientSerializer(serializers.ModelSerializer):
 
 
 class RecipeSerializer(serializers.ModelSerializer):
-    """ Serializer for Recipe object """
+    """ Serialize a Recipe object """
 
     ingredients = serializers.PrimaryKeyRelatedField(
         many=True,
@@ -38,3 +38,10 @@ class RecipeSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'ingredients', 'tags', 'time_minutes',
                   'price', 'link')
         read_olny_fields = ('id',)
+
+
+class RecipeDetailSerializer(RecipeSerializer):
+    """ Serialize a Recipe detail object """
+
+    ingredients = IngredientSerializer(many=True, read_only=True)
+    tags = TagSerializer(many=True, read_only=True)
